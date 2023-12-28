@@ -17,3 +17,11 @@ code {
 .wraps{
   background-image: linear-gradient(to right, #37d689 0%, #37d689 40%, white 40%, white 100%);
 }
+@media (max-width: 768px) {
+  /* Add your styles here */
+  
+
+  .wraps {
+    background-image: linear-gradient(to bottom, #37d689 0%, #37d689 30%, white 30%, white 100%);
+  }
+}

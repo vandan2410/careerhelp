@@ -1,7 +1,7 @@
 function Signin({change}){
     return(
         <div className="form h-full w-full flex flex-col justify-center items-center pb-[70px] font-serif">
-          <p className="mb-[25px] text-[30px]" >Sign up</p>
+          <p className="md:mb-[25px] text-[30px]" >Sign up</p>
         <form className="w-[40%] flex justify-center  flex-col" >
           
 
