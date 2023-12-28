@@ -9,7 +9,7 @@ function Login(){
       setIsNewUser(!isNewUser); 
     
 }
-    return (isNewUser ? <div className="form h-full w-full flex flex-col justify-center items-center pb-[100px] font-serif">
+    return (isNewUser ? <div className="form h-full w-full flex flex-col justify-center items-center md:pb-[100px] pb-[70px] font-serif">
     <p className="mb-[25px] text-[30px]" >Login</p>
   <form className="w-[40%] flex justify-center  flex-col" >
     
@@ -22,7 +22,7 @@ function Login(){
     <div className="w-full flex justify-center mt-[25px]">
       <button className="bg-[#38ca84] h-[40px] w-[100px] rounded text-white" type="button">Login</button>
     </div>
-    <div className="w-full flex justify-center mt-[25px]" >
+    <div className="w-full flex justify-center items-center mt-[25px]" >
     <p>New User?<button className='text-[#38ca84] ml-[10px]' onClick={handleClick}>Sign up</button></p>
     </div>
     
