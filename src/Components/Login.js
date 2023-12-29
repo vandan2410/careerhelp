@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import Signin from './Signin';
+import axios from 'axios';
+import { useNavigate } from 'react-router';
+import { useEffect } from 'react';
 function Login(){
     const [isNewUser, setIsNewUser] = useState(true);
     const handleClick = () => {
@@ -18,15 +21,43 @@ const handleInputChange = (e) => {
     [name]: value
   });
 };
+const navigate = useNavigate();
+axios.defaults.withCredentials=true;
+
+useEffect(()=>{
+  axios.get('http://localhost:5000/home')
+  .then(res=>{
+      if(res.data.valid)
+      {
+          navigate('/home')
+      }
+      
+  })
+  .catch(err => console.log(err))
+},[])
+
 
 const handleSubmit = (e) => {
   e.preventDefault();
-  // Use formData in further processing (e.g., send it to an API)
-  console.log('Form data:', formData);
+  axios.post('http://localhost:5000/login',formData)
+  .then(res=>{
+    if(res.data.login)
+    {
+      navigate('/home')
+    }
+    else{
+      alert("No Record")
+    }
+    console.log(res);
+    console.log('Form data:', formData);
   setFormData({
     username: '',
     password: ''
   });
+    
+  })
+  .catch(err => console.log(err));
+  
 };
 
     return (isNewUser ? <div className="form h-full w-full flex flex-col justify-center items-center md:pb-[100px] pb-[70px] font-serif">

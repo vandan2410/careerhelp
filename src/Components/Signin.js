@@ -1,4 +1,6 @@
 import { useState } from "react";
+import axios from 'axios';
+
 function Signin({change}){
   const [formData, setFormData] = useState({
     username: '',
@@ -14,7 +16,7 @@ function Signin({change}){
     });
   };
   
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     if(formData.password!==formData.confirmpassword)
     {
@@ -26,12 +28,18 @@ function Signin({change}){
       });
       return;
     }
-    console.log('Form data:', formData);
-    setFormData({
-      username: '',
-      password: '',
-      confirmpassword:''
-    });
+    axios.post('http://localhost:5000/Signin',formData)
+    .then(res => {
+      console.log(res);
+      setFormData({
+        username: '',
+        password: '',
+        confirmpassword: ''
+      });
+      window.location.reload();
+      
+    })
+    .catch(err => console.log(err));
   };
     return(
         <div className="form h-full w-full flex flex-col justify-center items-center pb-[70px] font-serif">
