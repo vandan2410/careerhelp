@@ -25,11 +25,9 @@ function Login() {
 
   useEffect(() => {
     const check = localStorage.getItem("isLoggedIn");
-    if(check===true)
-    {
-      navigate('/home')
+    if (check === "true") {
+      navigate("/home");
     }
-    
   }, []);
 
   const handleSubmit = (e) => {
@@ -38,16 +36,15 @@ function Login() {
     axios
       .post("http://localhost:5000/api/user/login", formData)
       .then((res) => {
-        console.log("result:",res)
-        if (res.status===200) {
-          localStorage.setItem("isLoggedIn", true);
-          localStorage.setItem("userName",res.data.userName);
+        console.log("result:", res);
+        if (res.status === 200) {
+          localStorage.setItem("isLoggedIn", "true");
+          localStorage.setItem("userName", res.data.userName);
           navigate("/home");
         } else {
           alert("No Record");
         }
-        
-        
+
         setFormData({
           email: "",
           password: "",

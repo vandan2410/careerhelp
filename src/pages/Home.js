@@ -3,40 +3,37 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import Navbar from "../Components/Navbar";
 function Home() {
-  const [name, setName] = useState("");
-  const [searchData, setSearchData] = useState({
-    search: "",
-  });
-  const handleSearchChange = (e) => {
-    const { value } = e.target;
-    setSearchData({
-      ...searchData,
-      search: value,
-    });
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(searchData);
-    setSearchData({
-      search: "",
-    });
-  };
+  // const [name, setName] = useState("");
+  // const [searchData, setSearchData] = useState({
+  //   search: "",
+  // });
+  // const handleSearchChange = (e) => {
+  //   const { value } = e.target;
+  //   setSearchData({
+  //     ...searchData,
+  //     search: value,
+  //   });
+  // };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log(searchData);
+  //   setSearchData({
+  //     search: "",
+  //   });
+  // };
   const navigate = useNavigate();
   axios.defaults.withCredentials = true;
   useEffect(() => {
     const check = localStorage.getItem("isLoggedIn");
-    
-    if(check===false)
-    {
-      
-      navigate('/login')
+
+    if (check === "false") {
+      navigate("/login");
     }
-    
   }, []);
   return (
     <div className="h-screen w-full">
       <div className="h-[10%] w-[full]">
-        <Navbar  />
+        <Navbar />
       </div>
       {/* <div>
         <form

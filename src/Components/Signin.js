@@ -40,7 +40,7 @@ function Signin({ change }) {
       .catch((err) => console.log(err));
   };
   return (
-    <div className="form h-full w-full flex flex-col justify-center items-center pb-[70px] font-serif">
+    <div className="form h-full w-full flex flex-col justify-center items-center md:pb-[70px] font-serif pb-[40px]">
       <p className="md:mb-[25px] text-[30px]">Sign up</p>
       <form
         className="w-[40%] flex justify-center  flex-col"
@@ -86,7 +86,7 @@ function Signin({ change }) {
           className="h-[35px] border-[1px] border-solid w-full pl-[10px] mb-[20px] rounded-md p-3"
         />
 
-        <div className="w-full flex justify-center mt-[20px]">
+        <div className="w-full flex justify-center md:mt-[20px]">
           <button
             className="bg-[#38ca84] h-[40px] w-[50%] rounded text-white"
             type="submit"
