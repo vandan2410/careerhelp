@@ -28,7 +28,7 @@ function Login() {
     if (check === "true") {
       navigate("/home");
     }
-  }, []);
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();

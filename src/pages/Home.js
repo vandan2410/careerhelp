@@ -1,26 +1,9 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import Navbar from "../Components/Navbar";
 function Home() {
-  // const [name, setName] = useState("");
-  // const [searchData, setSearchData] = useState({
-  //   search: "",
-  // });
-  // const handleSearchChange = (e) => {
-  //   const { value } = e.target;
-  //   setSearchData({
-  //     ...searchData,
-  //     search: value,
-  //   });
-  // };
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log(searchData);
-  //   setSearchData({
-  //     search: "",
-  //   });
-  // };
+  
   const navigate = useNavigate();
   axios.defaults.withCredentials = true;
   useEffect(() => {
@@ -29,7 +12,7 @@ function Home() {
     if (check === "false") {
       navigate("/login");
     }
-  }, []);
+  });
   return (
     <div className="h-screen w-full">
       <div className="h-[10%] w-[full]">
