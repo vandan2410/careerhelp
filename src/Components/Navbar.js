@@ -32,16 +32,16 @@ function Navbar(props) {
     }
   };
   return (
-    <div>
+    <div className="" >
       <nav className=" flex  border-b md:shadow-lg items-center relative bg-[#38ca84] font-serif  ">
         <div className="text-[30px]  md:py-0 py-4 text-white ml-[20px]">
-          CareerHelp
+          <a href="/home">CareerHelp</a>
         </div>
 
         <ul
           className={`md:px-2 ml-auto md:flex md:space-x-2  md:relative top-full left-0 right-0`}
         >
-          <div
+          {/* <div
             className="flex justify-center items-center  rounded-full "
             onClick={toggleSearch}
           >
@@ -78,7 +78,7 @@ function Navbar(props) {
                 className="md:h-[50%] h-[50%] rounded-md pl-[10px] md:w-[0px]"
               />
             </form>
-          </div>
+          </div> */}
           <li className="relative parent">
             <a
               href="/home"
@@ -110,8 +110,13 @@ function Navbar(props) {
                 <span>Hello , {userName}</span>
               </li>
               <li>
-                <a href="/addpost" className="flex px-4 py-3 hover:bg-gray-50">
+                <a href="/addpost" className="flex px-4 pt-3 hover:bg-gray-50">
                   Add Experience
+                </a>
+              </li>
+              <li>
+                <a href="/profile" className="flex px-4 py-3 hover:bg-gray-50">
+                  My Profile
                 </a>
               </li>
               <li>
