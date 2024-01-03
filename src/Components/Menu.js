@@ -1,6 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+
+
 function Menu(props) {
   const [isOpen, setIsOpen] = useState(true);
 
@@ -11,7 +11,7 @@ function Menu(props) {
   const closeDropdown = () => {
     setIsOpen(false);
   };
-  const navigate = useNavigate();
+
   
   return (
     <div className="dropdown min-h-full " onBlur={closeDropdown}>
