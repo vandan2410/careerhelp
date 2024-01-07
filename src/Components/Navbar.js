@@ -5,13 +5,9 @@ function Navbar(props) {
   const navigate = useNavigate();
   const userName = localStorage.getItem("userName");
   const [userIsOpen, setUserIsOpen] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
 
-  const toggleSearch = () => {
-    setIsExpanded(!isExpanded);
-    setSearchValue("");
-  };
+
+  
 
   // const handleInputChange = (event) => {
   //   setSearchValue(event.target.value);
@@ -33,7 +29,7 @@ function Navbar(props) {
   };
   return (
     <div className="" >
-      <nav className=" flex  border-b md:shadow-lg items-center relative bg-[#38ca84] font-serif  ">
+      <nav className=" flex  backdrop-blur-md md:shadow-lg items-center relative  font-serif  ">
         <div className="text-[30px]  md:py-0 py-4 text-white ml-[20px]">
           <a href="/home">CareerHelp</a>
         </div>
@@ -88,7 +84,7 @@ function Navbar(props) {
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
-                  fill="currentColor"
+                  fill="#c5c2c2"
                   className="w-9 h-9"
                   onClick={handleIsOpen}
                 >
@@ -102,7 +98,7 @@ function Navbar(props) {
             </a>
             <ul
               className={
-                `child transition duration-300 md:absolute top-full right-0 md:w-48 bg-white md:shadow-lg md:rounded-b p-4 text-[17px] ` +
+                `child transition duration-300 md:absolute top-full right-0 md:w-48 bg-transparent md:shadow-lg md:rounded-b p-4 text-[17px] text-[#c5c2c2]` +
                 (userIsOpen === true ? " absolute" : " hidden")
               }
             >
@@ -110,18 +106,18 @@ function Navbar(props) {
                 <span>Hello , {userName}</span>
               </li>
               <li>
-                <a href="/addpost" className="flex px-4 pt-3 hover:bg-gray-50">
+                <a href="/addpost" className="flex px-4 pt-3 hover:text-[#3e6fb8]">
                   Add Experience
                 </a>
               </li>
               <li>
-                <a href="/profile" className="flex px-4 py-3 hover:bg-gray-50">
+                <a href="/profile" className="flex px-4 py-3 hover:text-[#3e6fb8]">
                   My Profile
                 </a>
               </li>
               <li>
                 <button
-                  className=" w-full bg-[#38ca84] text-white rounded-md shadow-[0_3px_10px_rgb(0,0,0,0.2)] md:m-0 mb-[20px]"
+                  className=" w-full bg-[#3e6fb8] text-white rounded-md shadow-[0_3px_10px_rgb(0,0,0,0.2)] md:m-0 mb-[20px]"
                   onClick={handleLogout}
                 >
                   Logout

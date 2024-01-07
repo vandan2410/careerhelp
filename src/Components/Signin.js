@@ -4,7 +4,7 @@ import axios from "axios";
 function Signin({ change }) {
   const [formData, setFormData] = useState({
     email: "",
-    username: "",
+    userName: "",
     password: "",
     confirmpassword: "",
   });
@@ -31,7 +31,7 @@ function Signin({ change }) {
         console.log(res);
         setFormData({
           email: "",
-          username: "",
+          userName: "",
           password: "",
           confirmpassword: "",
         });
@@ -41,7 +41,7 @@ function Signin({ change }) {
   };
   return (
     <div className="form h-full w-full flex flex-col justify-center items-center md:pb-[70px] font-serif pb-[40px]">
-      <p className="md:mb-[25px] text-[30px]">Sign up</p>
+      <p className="md:mb-[25px] text-[30px] text-[#c5c2c2] ">Sign up</p>
       <form
         className="w-[40%] flex justify-center  flex-col"
         onSubmit={handleSubmit}
@@ -53,17 +53,17 @@ function Signin({ change }) {
           value={formData.email}
           onChange={handleInputChange}
           required
-          className="h-[35px] border-[1px] border-solid w-full flex justify-center pl-[10px] mb-[20px] rounded-md p-3"
+          className="h-[35px] border-b-[1px]  w-full  pl-[10px] mb-[20px] text-[#c5c2c2] focus:outline-none p-3 bg-transparent  "
         />
 
         <input
           type="text"
-          name="username"
+          name="userName"
           placeholder="Username"
-          value={formData.username}
+          value={formData.userName}
           onChange={handleInputChange}
           required
-          className="h-[35px] border-[1px] border-solid w-full flex justify-center pl-[10px] mb-[20px] rounded-md p-3"
+          className="h-[35px] border-b-[1px]  w-full  pl-[10px] mb-[20px] text-[#c5c2c2] p-3 bg-transparent focus:outline-none "
         />
 
         <input
@@ -73,7 +73,7 @@ function Signin({ change }) {
           value={formData.password}
           onChange={handleInputChange}
           required
-          className="h-[35px] border-[1px] border-solid w-full flex justify-center pl-[10px] mb-[20px] rounded-md p-3"
+          className="h-[35px] border-b-[1px]  w-full  pl-[10px] mb-[20px] text-[#c5c2c2] p-3 bg-transparent focus:outline-none "
         />
 
         <input
@@ -83,21 +83,21 @@ function Signin({ change }) {
           value={formData.confirmpassword}
           onChange={handleInputChange}
           required
-          className="h-[35px] border-[1px] border-solid w-full pl-[10px] mb-[20px] rounded-md p-3"
+          className="h-[35px] border-b-[1px]  w-full pl-[10px] mb-[20px] text-[#c5c2c2] p-3 bg-transparent focus:outline-none "
         />
 
         <div className="w-full flex justify-center md:mt-[20px]">
           <button
-            className="bg-[#38ca84] h-[40px] w-[50%] rounded text-white"
+            className="bg-[#3e6fb8] h-[40px] w-[50%] rounded text-[#fffefe]  "
             type="submit"
           >
             Sign Up
           </button>
         </div>
         <div className="w-full flex justify-center mt-[25px]">
-          <p>
+          <p className="text-[#c5c2c2]">
             Already a User?
-            <button className="text-[#38ca84] ml-[10px]" onClick={change}>
+            <button className="text-[#7aafff] ml-[10px]" onClick={change}>
               Login{" "}
             </button>
           </p>
