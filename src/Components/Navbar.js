@@ -1,11 +1,13 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-function Navbar(props) {
-  const navigate = useNavigate();
-  const userName = localStorage.getItem("userName");
-  const [userIsOpen, setUserIsOpen] = useState(false);
 
+function Navbar({item}) {
+  const navigate = useNavigate();
+  
+  const [userIsOpen, setUserIsOpen] = useState(false);
+  
+  
 
   
 
@@ -16,12 +18,14 @@ function Navbar(props) {
     e.preventDefault();
     setUserIsOpen(!userIsOpen);
   };
+  const userName=localStorage.getItem('userName')
   const handleLogout = async (e) => {
     e.preventDefault();
 
     try {
       await axios.get("http://localhost:5000/api/user/logout");
       localStorage.setItem("isLoggedIn", false);
+      localStorage.clear();
       navigate("/login");
     } catch (error) {
       console.log(error);
@@ -103,15 +107,15 @@ function Navbar(props) {
               }
             >
               <li>
-                <span>Hello , {userName}</span>
+                <span>Hello, {userName} </span>
               </li>
               <li>
-                <a href="/addpost" className="flex px-4 pt-3 hover:text-[#3e6fb8]">
+              <a href="/addpost" className="flex px-4 py-3 hover:text-[#3e6fb8]">
                   Add Experience
                 </a>
               </li>
               <li>
-                <a href="/profile" className="flex px-4 py-3 hover:text-[#3e6fb8]">
+                <a href="/profile" className="flex px-4 pb-3 hover:text-[#3e6fb8]">
                   My Profile
                 </a>
               </li>

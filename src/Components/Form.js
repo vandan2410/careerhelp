@@ -4,18 +4,20 @@ import { useState } from "react";
 function Form() {
   const [formData, setFormData] = useState({
     title: "",
-    batch: 0,
+    batch: "",
     companyName: "",
     content: "",
-    ctc: 0,
+    ctc: "",
     isAnonymous: false,
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    const fieldValue = name === 'batch' || name === 'ctc' ? (parseInt(value) || 0) : value;
+
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: fieldValue,
     });
   };
 
@@ -27,16 +29,37 @@ function Form() {
       // Other form data updates if needed
     });
   };
-
+  function getCookieValue(cookieName) {
+    const cookies = document.cookie.split(';');
+    
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      const [name, value] = cookie.split('=');
+      
+      if (name === cookieName) {
+        return decodeURIComponent(value);
+      }
+    }
+    
+    return null; // Return null if cookie not found
+  }
+  
+  // Usage:
+  const allconfig = getCookieValue("bigCookie");
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     const config = {
       headers: {
         Authorization:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcwNDMxMzYwM30.8aGpLY95bUdY94_wetck3vTM6N_Ohhq72Q_RuCBEcpU", // Assuming it's a Bearer token
+          allconfig, // Assuming it's a Bearer token
       },
     };
-    console.log(formData);
+   
+
+
+
+    
     try {
       const { ctc, batch, ...rest } = formData;
 
@@ -51,10 +74,10 @@ function Form() {
       console.log(formData); // Log the form data
       setFormData({
         title: "",
-        batch: 0,
+        batch: "",
         companyName: "",
         content: "",
-        ctc: 0,
+        ctc: "",
         isAnonymous: false,
       });
       alert("Post Added");

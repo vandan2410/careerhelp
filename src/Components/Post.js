@@ -1,8 +1,10 @@
-import { useState , useEffect} from "react";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
 import axios from "axios";
-function Post({item}) {
+function Post({ item }) {
   const [isVisible, setIsVisible] = useState(true);
-  const [author,setAuthor] = useState([]);
+  const [author, setAuthor] = useState([]);
   const handlePost = async (e) => {
     e.preventDefault();
     setIsVisible(!isVisible);
@@ -25,7 +27,7 @@ function Post({item}) {
     fetchData();
   }, [userId]);
 
-
+  
 
   function truncateText(text, maxLength) {
     const words = text.split(" ");
@@ -33,9 +35,12 @@ function Post({item}) {
 
     return truncated + (words.length > maxLength ? "..." : ""); // Append ellipsis if truncated
   }
-  
+
   const originalText = item.content;
-    
+
+  const authorId = item.authorId;
+ 
+
   const truncatedText = truncateText(originalText, 30); // Truncate to 10 words
   return (
     <div className="h-full w-full flex-col backdrop-blur-md px-5 py-2 mb-4">
@@ -68,7 +73,10 @@ function Post({item}) {
         <p>CTC: {item.ctc}</p>
         <span className="flex justify-center items-center">
           <p>
-            Contributed by: <a href="/">{author.userName}</a>
+            Contributed by:
+            <Link to={{ pathname: `/authorpage/${authorId}`,   }}>
+              {author.userName}
+            </Link>
           </p>
         </span>
       </div>

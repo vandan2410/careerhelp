@@ -1,12 +1,13 @@
 import { useState } from "react";
-
-function EditProfile({ change }) {
+import axios from "axios";
+function EditProfile({ item }) {
+  
   const [editUser, setEditUser] = useState({
-    username: "",
-    email: "",
-    linkedin: "",
-    github: "",
-    bbio: "",
+    username: item.userName,
+    email: item.email,
+    linkedin: item.linkedinUrl,
+    github: item.linkedinUrl,
+    bio: item.bio,
   });
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -15,11 +16,20 @@ function EditProfile({ change }) {
       [name]: value,
     });
   };
-
-  const handleSubmit = (e) => {
+  
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    window.location.reload();
-    console.log("The form was submitted: ", editUser);
+    try {
+      await axios.put(`http://localhost:5000/api/user/updateuser/${item.id}`, editUser);
+
+      console.log(editUser); 
+      
+      alert("Details Updated");
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
+      alert("Error occurred while updating the user");
+    }
   };
   return (
     <div className="  rounded-md h-full w-[60%]  my-[30px] flex justify-center items-center flex-col backdrop-blur-sm text-[#fffefe] ">
@@ -29,7 +39,7 @@ function EditProfile({ change }) {
         </p>
       </div>
 
-      <div className="bg-transparent w-full p-[20px] flex justify-center items-center rounded-md ">
+      <div className="bg-transparent w-full px-[20px] flex justify-center items-center rounded-md ">
         <form
           onSubmit={handleSubmit}
           className="flex flex-col w-full h-full   "
@@ -47,10 +57,10 @@ function EditProfile({ change }) {
 
             <input
               type="text"
-              name="email"
-              placeholder="Email"
+              readOnly={true}
+              
               value={editUser.email}
-              onChange={handleInputChange}
+              
               required
               className="h-[35px] bg-transparent border-b-[1px] border-solid  w-4/5 flex justify-center pl-[10px] p-3 mb-[25px] focus:outline-none "
             />
@@ -75,7 +85,7 @@ function EditProfile({ change }) {
 
             <textarea
               type="text"
-              name="Bio"
+              name="bio"
               placeholder="Bio"
               value={editUser.bio}
               onChange={handleInputChange}

@@ -1,11 +1,33 @@
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import EditProfile from "./EditProfile";
+import axios from "axios";
 function Profile() {
   
   const [updateProfile, setUpdateProfile] = useState(true);
+  const [user,setUser] = useState([]);
   const editProfile = () => {
     setUpdateProfile(!updateProfile);
   };
+  const userId=localStorage.getItem("userId");
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/api/user/userDetails/${userId}`
+        );
+        setUser(response.data.payload);
+        
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [userId]);
+  
+  
+  
   return updateProfile ? (
     <div className="  rounded-md h-full w-[50%] backdrop-blur-sm mt-[30px] flex justify-center items-center flex-col text-[#fffefe] ">
       <div className="text-[25px]  h-[70px]  text-center flex justify-center items-center p-4 bg-[#183053] w-full">
@@ -15,34 +37,34 @@ function Profile() {
         <div className="mb-4 flex ">
           <p>Username:</p>
           <div className=" w-[70%]   rounded-md ml-2">
-            <p className="pl-3">Vandan</p>
+            <p className="pl-3">{user.userName}</p>
           </div>
         </div>
         <div className="mb-4 flex  ">
           <p>Email: </p>
           <div className=" w-[70%]   rounded-md  ml-[43px] ">
-            <p className="pl-3">Vandanc71@gmail.com</p>
+            <p className="pl-3">{user.email}</p>
           </div>
         </div>
 
         <div className="mb-4 flex  ">
-          <p>LinkedIn : </p>
+          <p>LinkedIn :  </p>
           <div className=" w-[70%]   rounded-md  ml-[13px] ">
-            <p className="pl-3"></p>
+            <p className="pl-3">{user.linkedinUrl}</p>
           </div>
         </div>
 
         <div className="mb-4 flex  ">
           <p>Github : </p>
           <div className=" w-[70%]   rounded-md  ml-[28px] ">
-            <p className="pl-3"></p>
+            <p className="pl-3">{user.githubUrl}</p>
           </div>
         </div>
 
         <div className="mb-4 flex h-3/5 ">
           <p>Bio : </p>
           <div className=" w-[70%]   rounded-md  ml-[55px] h-24 ">
-            <p className="pl-3"></p>
+            <p className="pl-3">{user.bio}</p>
           </div>
         </div>
 
@@ -57,7 +79,7 @@ function Profile() {
       </div>
     </div>
   ) : (
-    <EditProfile change={editProfile} />
+    <EditProfile item={user} />
   );
 }
 export default Profile;

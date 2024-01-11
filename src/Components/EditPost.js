@@ -1,64 +1,198 @@
-import { useState } from "react";
-function EditPost() {
-  const [isVisible, setIsVisible] = useState(false);
-  const handlePost = async (e) => {
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+function EditPost(params) {
+  const [formData, setFormData] = useState({
+    companyName: { name: "" },
+    isAnonymous:false
+  });
+  const [item, setItem] = useState({});
+  const [name, setname] = useState("");
+
+  const { postId } = useParams();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/api/post/postwithcompanyname/${postId}`
+        );
+        setFormData(response.data.payload);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [postId]);
+
+  const companyNameInputValue = formData.companyName
+    ? formData.companyName.name
+    : "";
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    const fieldValue =
+      name === "batch" || name === "ctc" ? parseInt(value) || 0 : value;
+
+    setFormData({
+      ...formData,
+      [name]: fieldValue,
+    });
+  };
+
+  const handleCheckboxChange = (e) => {
+    const { checked } = e.target;
+    setFormData({
+      ...formData,
+      isAnonymous: checked,
+      // Other form data updates if needed
+    });
+  };
+  function getCookieValue(cookieName) {
+    const cookies = document.cookie.split(";");
+
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      const [name, value] = cookie.split("=");
+
+      if (name === cookieName) {
+        return decodeURIComponent(value);
+      }
+    }
+
+    return null; // Return null if cookie not found
+  }
+
+  // Usage:
+  const allconfig = getCookieValue("bigCookie");
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsVisible(!isVisible);
+    const config = {
+      headers: {
+        Authorization: allconfig, // Assuming it's a Bearer token
+      },
+    };
+    const { title, batch, companyName : {name :companyName}, ctc, content ,isAnonymous} = formData;
+    
+
+    
+    try {
+      
+
+      const body = {
+        ctc: Number(ctc),
+    batch: Number(batch),
+    title,
+    companyName,
+    content,
+    isAnonymous: isAnonymous ?? false,
+      };
+      console.log(body);
+
+      await axios.put(
+        `http://localhost:5000/api/post/editPost/${postId}`,body,config
+      );
+
+      setFormData({
+        title: "",
+        batch: "",
+        companyName: "",
+        content: "",
+        ctc: "",
+        isAnonymous: false,
+      });
+
+      alert("Post updated");
+    } catch (err) {
+      console.log(err);
+      alert("Error occurred while adding the post");
+    }
   };
 
   return (
-    <div className="h-full w-full flex justify-center items-center flex-col ">
-      
-      <div
-        className={
-          `flex items-center justify-between h-full w-[70%]  p-[10px] text-[20px] text-white mt-[20px] ` +
-          (isVisible === true ? "  bg-[#38ca84]  " : " bg-[#72b091] ")
-        }
-        onClick={handlePost}
-      >
-        <p className="">Company Name</p>
-        <span className="flex w-[30%] items-center justify-around ">
-          <p>Batch</p>
-          <p>CTC</p>
-          <div
-            className={
-              `   shadow-[0_3px_10px_rgb(0,0,0,0.2)] p-[10px] rounded-md ` + (isVisible === true ? " block  " : " hidden")
-            }
-          >
-            <button type="">Edit Post</button>
-          </div>
-        </span>
+    <form className="h-full w-full backdrop-blur-sm  " onSubmit={handleSubmit}>
+      <div className="h-[15%] w-full flex md:flex-row flex-col justify-around items-center  ">
+        <input
+          type="text"
+          name="title"
+          placeholder="Title"
+          value={formData.title}
+          onChange={handleChange}
+          required
+          className=" md:w-2/5 md:h-3/5  pl-3 w-[90%] h-2/5 m-[5px] mt-[10px] bg-transparent border-b-[1px] focus:outline-none text-[#fffefe] "
+        />
+
+        <input
+          type="number"
+          name="batch"
+          placeholder="Batch"
+          value={formData.batch}
+          onChange={handleChange}
+          required
+          className=" md:w-2/5 md:h-3/5 bg-transparent border-b-[1px] pl-3 w-[90%] h-2/5 m-[5px] focus:outline-none text-[#fffefe] "
+        />
       </div>
-      <div
-        className={
-          `h-full w-[70%] bg-[#adeccd] ` +
-          (isVisible === true ? " block" : " hidden")
-        }
-      >
-        <p className="p-5">
-          Round 1: Round1 is an Aptitude round that is on the Amcat platform.
-          This round consists of four sections namely. Quant (24 questions 35
-          minutes) Logical (25 questions 35 minutes) Code debugging (7 questions
-          20 minutes) Essay question for 15 minutes. Round 2: Based on your
-          performance you are eligible for GenC Next interview or GenC
-          interview, I am selected for GenC. The interview is scheduled after 2
-          weeks of the exam, and we get our mails of the interview one day
-          before. The interview was scheduled on the Amcat Platform. In an
-          interview there are also three sections like first they will ask you
-          questions regarding your academics i.e Technical Questions, they are
-          given some Aptitude questions for solving, and then HR questions.
-          These rounds are combined into one interview for about 40 minutes. The
-          interviewer is on time, and he told me his name and told me that he is
-          going to take first TR, then Aptitude, and the HR.
-        </p>
-        <span className="flex justify-around items-center bg-[#4ed895] p-[5px]">
-          <p className=" text-[20px] ">Contributed By : Vandan Hood</p>
-          <a href="/">
-            <img className="h-8 w-8" src="./img/linkedin.png" alt="" />
-          </a>
-        </span>
+
+      <div className="h-[15%] w-full flex md:flex-row flex-col justify-around items-center">
+        <input
+          type="text"
+          name="companyName"
+          placeholder="Company Name"
+          value={companyNameInputValue}
+          onChange={handleChange}
+          required
+          className="md:w-2/5 md:h-3/5 bg-transparent border-b-[1px] pl-3 w-[90%] h-2/5 m-[5px] focus:outline-none text-[#fffefe] "
+        />
+
+        <input
+          type="number"
+          name="ctc"
+          placeholder="CTC per annum"
+          value={formData.ctc}
+          onChange={handleChange}
+          required
+          className="md:w-2/5 md:h-3/5 bg-transparent border-b-[1px] pl-3 w-[90%] h-2/5 m-[5px] text-[#fffefe] focus:outline-none "
+          style={{ "::placeholder": { color: "#fffefe" } }}
+        />
       </div>
-    </div>
+
+      <div className="h-[50%] w-full flex justify-center items-center ">
+        <textarea
+          type="textarea"
+          name="content"
+          placeholder="Complete Information about the process in brief"
+          value={formData.content}
+          onChange={handleChange}
+          required
+          className="bg-transparent border-[1px] resize-y w-[90%] h-[90%] focus:outline-none relative pl-2 text-[#fffefe] placeholder-top-left pt-2 "
+          style={{ "::placeholder": { color: "#fffefe" } }}
+        />
+      </div>
+
+      <div className="h-1/10 flex justify-start gap-4 items-center ">
+        <label className="h-full  text-[18px] pl-[40px] text-[#fffefe] ">
+          Make Post Anonymous:
+        </label>
+        <input
+          type="checkbox"
+          name="isAnonymous"
+          checked={formData.isAnonymous}
+          onChange={handleCheckboxChange}
+          className="h-[18px] w-[18px] border-2 border-gray-400 rounded-sm focus:ring-2 focus:ring-gray-400 "
+        />
+      </div>
+
+      <div className="h-1/10 w-full flex justify-center items-center ">
+        <button
+          className="bg-[#3e6fb8] h-[50px] w-[150px] rounded-md m-[20px] md:m-0 text-[#fffefe] "
+          type="submit"
+        >
+          Confirm Changes
+        </button>
+      </div>
+    </form>
   );
 }
+
 export default EditPost;

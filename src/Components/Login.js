@@ -32,14 +32,16 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form data:", formData);
+    
     axios
       .post("http://localhost:5000/api/user/login", formData)
       .then((res) => {
-        console.log("result:", res);
+        
         if (res.status === 200) {
           localStorage.setItem("isLoggedIn", "true");
-          localStorage.setItem("userName", res.data.userName);
+          localStorage.setItem("userName",res.data.payload.userName)
+          localStorage.setItem("userId",res.data.payload.id)
+          console.log(res.data.payload)
           navigate("/home");
         } else {
           alert("No Record");

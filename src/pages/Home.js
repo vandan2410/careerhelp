@@ -5,8 +5,13 @@ import Navbar from "../Components/Navbar";
 import CompanyCard from "../Components/CompanyCard";
 import Footer from "../Components/Footer";
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
+
 
 function Home() {
+  const location = useLocation();
+  const prop = location.state;
+  
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
   axios.defaults.withCredentials = true;
@@ -20,11 +25,12 @@ function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/company/getAllCompanies');
+        const response = await axios.get(
+          "http://localhost:5000/api/company/getAllCompanies"
+        );
         setItems(response.data);
-        
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
@@ -32,14 +38,14 @@ function Home() {
   }, []);
   return (
     <div className="min-h-screen w-full flex flex-col ">
-      <Navbar />
-      <div className="h-full w-full flex flex-col items-center flex-1 " >
-        <p className="text-[25px] text-[#c5c2c2] m-5 " >Placement Archives</p>
+      <Navbar item={prop} />
+      <div className="h-full w-full flex flex-col items-center flex-1 ">
+        <p className="text-[25px] text-[#c5c2c2] m-5 ">Placement Archives</p>
         {items.payload?.map((item) => (
-        <CompanyCard key={item.id} item={item} />
-      ))}
+          <CompanyCard key={item.id} item={item} />
+        ))}
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
