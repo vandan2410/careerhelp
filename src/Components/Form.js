@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 //import Cookies from 'js-cookie'
+import { useNavigate } from "react-router-dom";
 function Form() {
   const [formData, setFormData] = useState({
     title: "",
@@ -10,7 +11,7 @@ function Form() {
     ctc: "",
     isAnonymous: false,
   });
-
+  const navigate = useNavigate;
   const handleChange = (e) => {
     const { name, value } = e.target;
     const fieldValue = name === 'batch' || name === 'ctc' ? (parseInt(value) || 0) : value;
@@ -81,6 +82,7 @@ function Form() {
         isAnonymous: false,
       });
       alert("Post Added");
+      navigate('/home')
     } catch (err) {
       console.log(err);
       alert("Error occurred while adding the post");

@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 function EditPost(params) {
   const [formData, setFormData] = useState({
     companyName: { name: "" },
     isAnonymous:false
   });
-  const [item, setItem] = useState({});
-  const [name, setname] = useState("");
-
+ 
+  const navigate=useNavigate;
   const { postId } = useParams();
   useEffect(() => {
     const fetchData = async () => {
@@ -73,7 +72,7 @@ function EditPost(params) {
         Authorization: allconfig, // Assuming it's a Bearer token
       },
     };
-    const { title, batch, companyName : {name :companyName}, ctc, content ,isAnonymous} = formData;
+    const { title, batch, companyName : {name :companyName}, ctc, content } = formData;
     
 
     
@@ -86,7 +85,7 @@ function EditPost(params) {
     title,
     companyName,
     content,
-    isAnonymous: isAnonymous ?? false,
+    
       };
       console.log(body);
 
@@ -104,6 +103,7 @@ function EditPost(params) {
       });
 
       alert("Post updated");
+      navigate('/home')
     } catch (err) {
       console.log(err);
       alert("Error occurred while adding the post");

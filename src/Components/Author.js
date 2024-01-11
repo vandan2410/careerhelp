@@ -4,7 +4,7 @@ function Author({item}) {
 
   const [author,setAuthor] =useState([])
   const authorId=item;
-  console.log(authorId)
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -13,6 +13,7 @@ function Author({item}) {
         );
         setAuthor(response.data.payload);
       } catch (error) {
+        alert("Error Fetching error")
         console.error("Error fetching data:", error);
       }
     };

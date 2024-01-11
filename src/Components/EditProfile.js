@@ -57,10 +57,10 @@ function EditProfile({ item }) {
 
             <input
               type="text"
-              readOnly={true}
-              
+              name="email"
+              placeholder="Email"
               value={editUser.email}
-              
+              onChange={handleInputChange}
               required
               className="h-[35px] bg-transparent border-b-[1px] border-solid  w-4/5 flex justify-center pl-[10px] p-3 mb-[25px] focus:outline-none "
             />
