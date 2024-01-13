@@ -1,17 +1,11 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-function Navbar(props) {
-  const navigate = useNavigate();
-  const userName = localStorage.getItem("userName");
-  const [userIsOpen, setUserIsOpen] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
 
-  const toggleSearch = () => {
-    setIsExpanded(!isExpanded);
-    setSearchValue("");
-  };
+function Navbar({ item }) {
+  const navigate = useNavigate();
+
+  const [userIsOpen, setUserIsOpen] = useState(false);
 
   // const handleInputChange = (event) => {
   //   setSearchValue(event.target.value);
@@ -20,20 +14,22 @@ function Navbar(props) {
     e.preventDefault();
     setUserIsOpen(!userIsOpen);
   };
+  const userName = localStorage.getItem("userName");
   const handleLogout = async (e) => {
     e.preventDefault();
 
     try {
       await axios.get("http://localhost:5000/api/user/logout");
       localStorage.setItem("isLoggedIn", false);
+      localStorage.clear();
       navigate("/login");
     } catch (error) {
       console.log(error);
     }
   };
   return (
-    <div className="" >
-      <nav className=" flex  border-b md:shadow-lg items-center relative bg-[#38ca84] font-serif  ">
+    <div className="relative z-50">
+      <nav className=" flex  backdrop-blur-md md:shadow-lg items-center relative  font-serif  ">
         <div className="text-[30px]  md:py-0 py-4 text-white ml-[20px]">
           <a href="/home">CareerHelp</a>
         </div>
@@ -79,7 +75,7 @@ function Navbar(props) {
               />
             </form>
           </div> */}
-          <li className="relative parent">
+          <li className="relative parent z-50 ">
             <a
               href="/home"
               className="flex justify-between md:inline-flex p-4 items-center  space-x-2"
@@ -88,7 +84,7 @@ function Navbar(props) {
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
-                  fill="currentColor"
+                  fill="#c5c2c2"
                   className="w-9 h-9"
                   onClick={handleIsOpen}
                 >
@@ -102,31 +98,39 @@ function Navbar(props) {
             </a>
             <ul
               className={
-                `child transition duration-300 md:absolute top-full right-0 md:w-48 bg-white md:shadow-lg md:rounded-b p-4 text-[17px] ` +
-                (userIsOpen === true ? " absolute" : " hidden")
+                `child transition duration-300 md:absolute top-full right-0 md:w-48 bg-transparent md:shadow-lg md:rounded-b p-4 text-[17px] text-[#c5c2c2] z-50 ` +
+                (userIsOpen === true ? " absolute  " : " hidden")
               }
             >
-              <li>
-                <span>Hello , {userName}</span>
-              </li>
-              <li>
-                <a href="/addpost" className="flex px-4 pt-3 hover:bg-gray-50">
-                  Add Experience
-                </a>
-              </li>
-              <li>
-                <a href="/profile" className="flex px-4 py-3 hover:bg-gray-50">
-                  My Profile
-                </a>
-              </li>
-              <li>
-                <button
-                  className=" w-full bg-[#38ca84] text-white rounded-md shadow-[0_3px_10px_rgb(0,0,0,0.2)] md:m-0 mb-[20px]"
-                  onClick={handleLogout}
-                >
-                  Logout
-                </button>
-              </li>
+              <div className="bg-[#15243a] p-5 rounded-md h-full w-full " >
+                <li>
+                  <span>Hello, {userName} </span>
+                </li>
+                <li>
+                  <a
+                    href="/addpost"
+                    className="flex px-4 py-3 hover:text-[#3e6fb8]"
+                  >
+                    Add Experience
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/profile"
+                    className="flex px-4 pb-3 hover:text-[#3e6fb8]"
+                  >
+                    My Profile
+                  </a>
+                </li>
+                <li>
+                  <button
+                    className=" w-full bg-[#3e6fb8] text-white rounded-md shadow-[0_3px_10px_rgb(0,0,0,0.2)] md:m-0 mb-[20px]"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </button>
+                </li>
+              </div>
             </ul>
           </li>
         </ul>

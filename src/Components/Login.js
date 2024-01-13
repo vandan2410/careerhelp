@@ -32,14 +32,16 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form data:", formData);
+    
     axios
       .post("http://localhost:5000/api/user/login", formData)
       .then((res) => {
-        console.log("result:", res);
+        
         if (res.status === 200) {
           localStorage.setItem("isLoggedIn", "true");
-          localStorage.setItem("userName", res.data.userName);
+          localStorage.setItem("userName",res.data.payload.userName)
+          localStorage.setItem("userId",res.data.payload.id)
+          console.log(res.data.payload)
           navigate("/home");
         } else {
           alert("No Record");
@@ -54,8 +56,8 @@ function Login() {
   };
 
   return isNewUser ? (
-    <div className="form h-full w-full flex flex-col justify-center items-center md:pb-[100px] pb-[70px] font-serif">
-      <p className="mb-[25px] text-[30px]">Login</p>
+    <div className="form h-full w-full flex flex-col justify-center items-center md:pb-[100px] pb-[70px] ">
+      <p className="mb-[25px] text-[30px] text-[#c5c2c2] ">Login</p>
       <form
         className="w-[40%] flex justify-center  flex-col "
         id="loginForm"
@@ -68,7 +70,7 @@ function Login() {
           value={formData.email}
           onChange={handleInputChange}
           required
-          className="h-[35px] border-[1px] border-solid w-full flex justify-center pl-[10px] mb-[20px] rounded-md p-3"
+          className="h-[35px] border-b-[1px]  w-full flex justify-center pl-[10px] mb-[20px]  p-3 bg-transparent text-[#c5c2c2] focus:outline-none "
         />
 
         <input
@@ -78,20 +80,20 @@ function Login() {
           value={formData.password}
           onChange={handleInputChange}
           required
-          className="h-[35px] border-[1px] border-solid w-full flex justify-center pl-[10px] mb-[20px] rounded-md p-3"
+          className="h-[35px] border-b-[1px]  w-full flex justify-center pl-[10px] mb-[20px]  p-3 bg-transparent text-[#c5c2c2] focus:outline-none "
         />
         <div className="w-full flex justify-center mt-[25px]">
           <button
-            className="bg-[#38ca84] h-[40px] w-[100px] rounded text-white"
+            className="bg-[#3e6fb8] h-[40px] w-[100px] rounded text-[#fffefe]"
             type="submit"
           >
             Login
           </button>
         </div>
         <div className="w-full flex justify-center items-center mt-[25px]">
-          <p>
+          <p className="text-[#f7f5f5]">
             New User?
-            <button className="text-[#38ca84] ml-[10px]" onClick={handleClick}>
+            <button className="text-[#7aafff] ml-[10px]" onClick={handleClick}>
               Sign up
             </button>
           </p>

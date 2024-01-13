@@ -1,20 +1,37 @@
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { useState } from "react";
-//import Cookies from 'js-cookie'
-import { useNavigate } from "react-router-dom";
-function Form() {
+import { useNavigate, useParams } from "react-router-dom";
+function EditPost(params) {
   const [formData, setFormData] = useState({
-    title: "",
-    batch: "",
-    companyName: "",
-    content: "",
-    ctc: "",
-    isAnonymous: false,
+    companyName: { name: "" },
+    isAnonymous:false
   });
-  const navigate = useNavigate;
+ 
+  const navigate=useNavigate;
+  const { postId } = useParams();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/api/post/postwithcompanyname/${postId}`
+        );
+        setFormData(response.data.payload);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [postId]);
+
+  const companyNameInputValue = formData.companyName
+    ? formData.companyName.name
+    : "";
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    const fieldValue = name === 'batch' || name === 'ctc' ? (parseInt(value) || 0) : value;
+    const fieldValue =
+      name === "batch" || name === "ctc" ? parseInt(value) || 0 : value;
 
     setFormData({
       ...formData,
@@ -31,48 +48,51 @@ function Form() {
     });
   };
   function getCookieValue(cookieName) {
-    const cookies = document.cookie.split(';');
-    
+    const cookies = document.cookie.split(";");
+
     for (let i = 0; i < cookies.length; i++) {
       const cookie = cookies[i].trim();
-      const [name, value] = cookie.split('=');
-      
+      const [name, value] = cookie.split("=");
+
       if (name === cookieName) {
         return decodeURIComponent(value);
       }
     }
-    
+
     return null; // Return null if cookie not found
   }
-  
+
   // Usage:
   const allconfig = getCookieValue("bigCookie");
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const config = {
       headers: {
-        Authorization:
-          allconfig, // Assuming it's a Bearer token
+        Authorization: allconfig, // Assuming it's a Bearer token
       },
     };
-   
-
-
+    const { title, batch, companyName : {name :companyName}, ctc, content } = formData;
+    
 
     
     try {
-      const { ctc, batch, ...rest } = formData;
+      
 
       const body = {
         ctc: Number(ctc),
-        batch: Number(batch),
-        ...rest,
+    batch: Number(batch),
+    title,
+    companyName,
+    content,
+    
       };
+      console.log(body);
 
-      await axios.post("http://localhost:5000/api/post/newPost", body, config);
+      await axios.put(
+        `http://localhost:5000/api/post/editPost/${postId}`,body,config
+      );
 
-      console.log(formData); // Log the form data
       setFormData({
         title: "",
         batch: "",
@@ -81,13 +101,15 @@ function Form() {
         ctc: "",
         isAnonymous: false,
       });
-      alert("Post Added");
+
+      alert("Post updated");
       navigate('/home')
     } catch (err) {
       console.log(err);
       alert("Error occurred while adding the post");
     }
   };
+
   return (
     <form className="h-full w-full backdrop-blur-sm  " onSubmit={handleSubmit}>
       <div className="h-[15%] w-full flex md:flex-row flex-col justify-around items-center  ">
@@ -117,7 +139,7 @@ function Form() {
           type="text"
           name="companyName"
           placeholder="Company Name"
-          value={formData.companyName}
+          value={companyNameInputValue}
           onChange={handleChange}
           required
           className="md:w-2/5 md:h-3/5 bg-transparent border-b-[1px] pl-3 w-[90%] h-2/5 m-[5px] focus:outline-none text-[#fffefe] "
@@ -163,13 +185,14 @@ function Form() {
 
       <div className="h-1/10 w-full flex justify-center items-center ">
         <button
-          className="bg-[#3e6fb8] h-[40px] w-[100px] rounded-md m-[20px] md:m-0 text-[#fffefe] "
+          className="bg-[#3e6fb8] h-[50px] w-[150px] rounded-md m-[20px] md:m-0 text-[#fffefe] "
           type="submit"
         >
-          Submit
+          Confirm Changes
         </button>
       </div>
     </form>
   );
 }
-export default Form;
+
+export default EditPost;
