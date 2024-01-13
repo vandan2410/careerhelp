@@ -4,7 +4,7 @@ function Footer(params) {
       <div className="h-full w-full flex items-center justify-center " >
         <p>Developed  By:</p>
       </div>
-      <div className="flex justify-around items-center  ">
+      <div className="sm:flex sm:justify-around items-center justify-center ">
         <span className="flex  justify-center items-center ">
           <p className="p-3" >Vandan Hood</p>
           <a href="https://www.linkedin.com/in/vandan-hood/" target="_" className="p-1" >

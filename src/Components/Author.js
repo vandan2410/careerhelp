@@ -29,34 +29,34 @@ function Author({item}) {
           <div className=" w-full p-[20px] rounded-md text-[18px] mb-[40px] h-full ">
             <div className="mb-4 flex ">
               <p>Username:</p>
-              <div className=" w-[70%]   rounded-md ml-2">
+              <div className=" w-[70%]   rounded-md ml-2 overflow:hidden ">
                 <p className="pl-3">{author.userName}</p>
               </div>
             </div>
-            <div className="mb-4 flex  ">
+            <div className="mb-4 flex  overflow-hidden ">
               <p>Email: </p>
-              <div className=" w-[70%]   rounded-md  ml-[43px] ">
+              <div className=" w-[70%]   rounded-md  ml-[43px] overflow:hidden ">
                 <p className="pl-3">{author.email}</p>
               </div>
             </div>
     
-            <div className="mb-4 flex  ">
-              <p>LinkedIn : </p>
-              <div className=" w-[70%]   rounded-md  ml-[13px] ">
+            <div className="mb-4 flex  overflow-hidden ">
+              <p>LinkedIn: </p>
+              <div className=" w-[70%]   rounded-md  ml-[13px] overflow:hidden ">
                 <p className="pl-3">{author.linkedinUrl}</p>
               </div>
             </div>
     
-            <div className="mb-4 flex  ">
-              <p>Github : </p>
-              <div className=" w-[70%]   rounded-md  ml-[28px] ">
+            <div className="mb-4 flex overflow-hidden ">
+              <p>Github: </p>
+              <div className=" w-[70%]   rounded-md  ml-[28px]  ">
                 <p className="pl-3">{author.githubUrl}</p>
               </div>
             </div>
     
-            <div className="mb-4 flex h-3/5 ">
-              <p>Bio : </p>
-              <div className=" w-[70%]   rounded-md  ml-[55px] h-24 ">
+            <div className="mb-4 flex h-3/5  overflow-hidden ">
+              <p>Bio: </p>
+              <div className=" w-[70%]   rounded-md  ml-[55px] h-24 overflow:hidden ">
                 <p className="pl-3">{author.bio}</p>
               </div>
             </div>

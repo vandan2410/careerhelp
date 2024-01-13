@@ -43,7 +43,7 @@ function Post({ item }) {
 
   const truncatedText = truncateText(originalText, 30); // Truncate to 10 words
   return (
-    <div className="h-full w-full flex-col backdrop-blur-md px-5 py-2 mb-4">
+    <div className="min-h-full w-full flex-col backdrop-blur-md px-5 py-2 mb-4">
       <div className="content-preview flex w-full" onClick={handlePost}>
         {isVisible ? (
           <p>
@@ -68,12 +68,12 @@ function Post({ item }) {
         )}
       </div>
 
-      <div className="flex p-3 w-full justify-around items-center">
-        <p>Batch: {item.batch}</p>
-        <p>CTC: {item.ctc}</p>
+      <div className="flex p-3 w-full justify-around items-center  flex-col sm:flex-row ">
+        <p className="my-2 md:my-0" >Batch: {item.batch}</p>
+        <p className="my-2 md:my-0" >CTC: {item.ctc}</p>
         <span className="flex justify-center items-center">
           <p>
-            Contributed by:
+            Contributed by :
             <Link to={{ pathname: `/authorpage/${authorId}`,   }}>
               {author.userName}
             </Link>

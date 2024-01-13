@@ -95,7 +95,7 @@ function EditProfile({ item }) {
 
           <div className="flex h-full w-full justify-center items-center ">
             <button
-              className="h-[40px] w-[175px] bg-[#3e6fb8] rounded-md text-[#fffefe] "
+              className="h-[40px] w-[175px] bg-[#3e6fb8] rounded-md text-[#fffefe] my-8 "
               type="submit"
             >
               Confirm Changes

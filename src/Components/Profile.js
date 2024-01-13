@@ -34,35 +34,35 @@ function Profile() {
         User Details
       </div>
       <div className=" w-full p-[20px] rounded-md text-[18px] mb-[40px] h-full ">
-        <div className="mb-4 flex ">
+        <div className="mb-4 flex overflow-hidden ">
           <p>Username:</p>
           <div className=" w-[70%]   rounded-md ml-2">
             <p className="pl-3">{user.userName}</p>
           </div>
         </div>
-        <div className="mb-4 flex  ">
+        <div className="mb-4 flex overflow-hidden ">
           <p>Email: </p>
           <div className=" w-[70%]   rounded-md  ml-[43px] ">
             <p className="pl-3">{user.email}</p>
           </div>
         </div>
 
-        <div className="mb-4 flex  ">
-          <p>LinkedIn :  </p>
+        <div className="mb-4 flex overflow-hidden ">
+          <p>LinkedIn:  </p>
           <div className=" w-[70%]   rounded-md  ml-[13px] ">
             <p className="pl-3">{user.linkedinUrl}</p>
           </div>
         </div>
 
-        <div className="mb-4 flex  ">
-          <p>Github : </p>
+        <div className="mb-4 flex overflow-hidden ">
+          <p>Github: </p>
           <div className=" w-[70%]   rounded-md  ml-[28px] ">
             <p className="pl-3">{user.githubUrl}</p>
           </div>
         </div>
 
-        <div className="mb-4 flex h-3/5 ">
-          <p>Bio : </p>
+        <div className="mb-4 flex h-3/5 overflow-hidden ">
+          <p>Bio: </p>
           <div className=" w-[70%]   rounded-md  ml-[55px] h-24 ">
             <p className="pl-3">{user.bio}</p>
           </div>
