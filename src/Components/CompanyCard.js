@@ -15,7 +15,7 @@ function CompanyCard({ item }) {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/post/getPostsbyCompanyId/${comapnyId}`
+          `${process.env.REACT_APP_BASE_URL}/post/getPostsbyCompanyId/${comapnyId}`
         );
         setPosts(response.data.payload);
       } catch (error) {

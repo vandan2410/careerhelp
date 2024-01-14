@@ -26,7 +26,7 @@ function Home() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/company/getAllCompanies"
+          `${process.env.REACT_APP_BASE_URL}/company/getAllCompanies`
         );
         setItems(response.data);
       } catch (error) {

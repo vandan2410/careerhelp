@@ -70,7 +70,7 @@ function Form() {
         ...rest,
       };
 
-      await axios.post("http://localhost:5000/api/post/newPost", body, config);
+      await axios.post(`${process.env.REACT_APP_BASE_URL}/post/newPost`, body, config);
 
       console.log(formData); // Log the form data
       setFormData({
@@ -85,7 +85,7 @@ function Form() {
       navigate('/home')
     } catch (err) {
       console.log(err);
-      alert("Error occurred while adding the post");
+      
     }
   };
   return (

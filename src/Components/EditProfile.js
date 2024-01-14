@@ -20,7 +20,7 @@ function EditProfile({ item }) {
   const handleSubmit = async(e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:5000/api/user/updateuser/${item.id}`, editUser);
+      await axios.put(`${process.env.REACT_APP_BASE_URL}/user/updateuser/${item.id}`, editUser);
 
       console.log(editUser); 
       

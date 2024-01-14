@@ -16,7 +16,7 @@ function Post({ item }) {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/user/userDetails/${userId}`
+          `${process.env.REACT_APP_BASE_URL}/user/userDetails/${userId}`
         );
         setAuthor(response.data.payload);
       } catch (error) {

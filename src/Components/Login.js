@@ -29,12 +29,12 @@ function Login() {
       navigate("/home");
     }
   });
-
+console.log(process.env.REACT_APP_BASE_URL)
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+  
     axios
-      .post("http://localhost:5000/api/user/login", formData)
+      .post(`${process.env.REACT_APP_BASE_URL}/user/login`, formData)
       .then((res) => {
         
         if (res.status === 200) {
