@@ -9,7 +9,7 @@ function Author({item}) {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/user/userDetails/${authorId}`
+          `${process.env.REACT_APP_BASE_URL}/user/userDetails/${authorId}`
         );
         setAuthor(response.data.payload);
       } catch (error) {

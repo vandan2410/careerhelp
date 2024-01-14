@@ -13,7 +13,7 @@ function EditPost(params) {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/post/postwithcompanyname/${postId}`
+          `${process.env.REACT_APP_BASE_URL}/post/postwithcompanyname/${postId}`
         );
         setFormData(response.data.payload);
       } catch (error) {
@@ -90,7 +90,7 @@ function EditPost(params) {
       console.log(body);
 
       await axios.put(
-        `http://localhost:5000/api/post/editPost/${postId}`,body,config
+        `${process.env.REACT_APP_BASE_URL}/post/editPost/${postId}`,body,config
       );
 
       setFormData({

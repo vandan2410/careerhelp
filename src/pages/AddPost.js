@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 function AddPost() {
   const location = useLocation;
   const prop=location.state
-  console.log(prop)
+  
   return (
     <div className="h-screen w-full font-serif ">
       <Navbar item={prop} />

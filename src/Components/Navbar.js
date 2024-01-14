@@ -19,7 +19,7 @@ function Navbar({ item }) {
     e.preventDefault();
 
     try {
-      await axios.get("http://localhost:5000/api/user/logout");
+      await axios.get(`${process.env.REACT_APP_BASE_URL}/user/logout`);
       localStorage.setItem("isLoggedIn", false);
       localStorage.clear();
       navigate("/login");

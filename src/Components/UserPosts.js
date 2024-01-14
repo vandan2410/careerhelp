@@ -33,7 +33,7 @@ function UserPosts() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/post/userPosts/${userId}`,config
+          `${process.env.REACT_APP_BASE_URL}/post/userPosts/${userId}`,config
         );
         setUserPosts(response.data.payload);
         
