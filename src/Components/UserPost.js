@@ -23,7 +23,7 @@ function UserPost({ item }) {
   }
   const allconfig = getCookieValue("bigCookie");
  
-
+  axios.defaults.withCredentials = true;
   const config = {
     headers: {
       Authorization: allconfig, // Assuming it's a Bearer token
