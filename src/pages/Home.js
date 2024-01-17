@@ -5,12 +5,11 @@ import Navbar from "../Components/Navbar";
 import CompanyCard from "../Components/CompanyCard";
 import Footer from "../Components/Footer";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+
 
 
 function Home() {
-  const location = useLocation();
-  const prop = location.state;
+  
   
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
@@ -38,7 +37,7 @@ function Home() {
   }, []);
   return (
     <div className="min-h-screen w-full flex flex-col ">
-      <Navbar item={prop} />
+      <Navbar  />
       <div className="h-full w-full flex flex-col items-center flex-1 ">
         <p className="text-[25px] text-[#c5c2c2] m-5 ">Placement Archives</p>
         {items.payload?.map((item) => (
