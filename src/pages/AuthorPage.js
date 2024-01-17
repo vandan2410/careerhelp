@@ -3,7 +3,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../Components/Navbar";
 function AuthorPage(props) {
-  //const location = useLocation();
+ 
   const { authorId } = useParams();
 
   return (
