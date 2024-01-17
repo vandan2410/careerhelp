@@ -56,7 +56,7 @@ function UserPost({ item }) {
     
       try {
         const response = await axios.delete(
-          `${process.env.REACT_APP_BASE_URL}/post/removePost/${postId}`,config
+          `${process.env.REACT_APP_BASE_URL}/post/removePost/${postId}`,{withCredentials:true}
         );
         if(response.status===200)
         {

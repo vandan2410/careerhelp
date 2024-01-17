@@ -30,32 +30,32 @@ function Form() {
       // Other form data updates if needed
     });
   };
-  // function getCookieValue(cookieName) {
-  //   const cookies = document.cookie.split(';');
+  function getCookieValue(cookieName) {
+    const cookies = document.cookie.split(';');
     
-  //   for (let i = 0; i < cookies.length; i++) {
-  //     const cookie = cookies[i].trim();
-  //     const [name, value] = cookie.split('=');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      const [name, value] = cookie.split('=');
       
-  //     if (name === cookieName) {
-  //       return decodeURIComponent(value);
-  //     }
-  //   }
+      if (name === cookieName) {
+        return decodeURIComponent(value);
+      }
+    }
     
-  //   return null; // Return null if cookie not found
-  // }
+    return null; // Return null if cookie not found
+  }
   
-  // // Usage:
-  // const allconfig = getCookieValue("bigCookie");
+  // Usage:
+  const allconfig = getCookieValue("bigCookie");
   
   const handleSubmit = async (e) => {
-    // e.preventDefault();
-    // const config = {
-    //   headers: {
-    //     Authorization:
-    //       allconfig, // Assuming it's a Bearer token
-    //   },
-    // };
+    e.preventDefault();
+    const config = {
+      headers: {
+        Authorization:
+          allconfig, // Assuming it's a Bearer token
+      },
+    };
    
 
 
@@ -70,7 +70,7 @@ function Form() {
         ...rest,
       };
 
-      await axios.post(`${process.env.REACT_APP_BASE_URL}/post/newPost`, body);
+      await axios.post(`${process.env.REACT_APP_BASE_URL}/post/newPost`, body,{withCredentials:true});
 
       console.log(formData); // Log the form data
       setFormData({
