@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 function Form() {
   const [formData, setFormData] = useState({
+    
     title: "",
     batch: "",
     companyName: "",
@@ -62,18 +63,22 @@ function Form() {
 
     
     try {
+      const userId = localStorage.getItem('userId')
       const { ctc, batch, ...rest } = formData;
 
       const body = {
         ctc: Number(ctc),
         batch: Number(batch),
+        
         ...rest,
       };
 
-      await axios.post(`${process.env.REACT_APP_BASE_URL}/post/newPost`, body,{withCredentials:true});
+      await axios.post(`${process.env.REACT_APP_BASE_URL}/post/newPost/${userId}`, body);
+      
 
-      console.log(formData); // Log the form data
+      console.log(body); // Log the form data
       setFormData({
+        
         title: "",
         batch: "",
         companyName: "",

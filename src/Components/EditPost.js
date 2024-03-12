@@ -47,31 +47,14 @@ function EditPost(params) {
       // Other form data updates if needed
     });
   };
-  function getCookieValue(cookieName) {
-    const cookies = document.cookie.split(";");
 
-    for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i].trim();
-      const [name, value] = cookie.split("=");
-
-      if (name === cookieName) {
-        return decodeURIComponent(value);
-      }
-    }
-
-    return null; // Return null if cookie not found
-  }
 
   // Usage:
-  const allconfig = getCookieValue("bigCookie");
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const config = {
-      headers: {
-        Authorization: allconfig, // Assuming it's a Bearer token
-      },
-    };
+    
     const { title, batch, companyName : {name :companyName}, ctc, content } = formData;
     
 
@@ -90,7 +73,7 @@ function EditPost(params) {
       console.log(body);
 
       await axios.put(
-        `${process.env.REACT_APP_BASE_URL}/post/editPost/${postId}`,body,config
+        `${process.env.REACT_APP_BASE_URL}/post/editPost/${postId}`,body
       );
 
       setFormData({
@@ -103,10 +86,10 @@ function EditPost(params) {
       });
 
       alert("Post updated");
-      navigate('/home')
+      navigate('/profile')
+      
     } catch (err) {
-      console.log(err);
-      alert("Error occurred while adding the post");
+      
     }
   };
 
